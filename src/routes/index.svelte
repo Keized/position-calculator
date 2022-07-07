@@ -1,10 +1,17 @@
 <script >
-	import FormItem from './FormItem.svelte';
-	export let capital = 1000;
-	export let maxLossPerTrade = 1;
-
-	export let currentPrice = 2;
-	export let stopPrice = 1;	
+	import {preferences} from '../store';
+	import FormItem from '../components/FormItem.svelte';
+	export let capital
+	export let maxLossPerTrade
+	export let currentPrice
+	export let stopPrice
+	
+	preferences.subscribe(value => {
+		capital = value.capital;
+		maxLossPerTrade = value.maxLossPerTrade;
+		currentPrice = value.currentPrice;
+		stopPrice = value.stopPrice;
+	});
 
 	function calculatePositionSize(capital, maxLossPerTrade, currentPrice, stopPrice) {
 		const assetMaxLoss = capital * (maxLossPerTrade / 100);

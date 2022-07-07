@@ -33,6 +33,10 @@
 		font-weight: 700;
 	}
 
+    input {
+        border-radius: .5rem;
+    }
+
 	input:read-only {
 		pointer-events: none;
 	}
