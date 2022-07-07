@@ -1,6 +1,5 @@
 <script>
 	import FormItem from '../components/FormItem.svelte';
-import Header from '../components/Header.svelte';
 	import {preferences} from '../store';
 
     export let currentForm;
@@ -9,20 +8,17 @@ import Header from '../components/Header.svelte';
         currentForm = value
 	});
 
-
     function update(value, name) {
         currentForm = {...currentForm, [name]: value}
     }
 
     function save() {
-        console.log(currentForm);
         preferences.set(currentForm);
     }
 </script>
 
 <main>
-    <Header/>
-    Preferences
+	<h2>Preferences</h2>
 
     <FormItem 
         value={currentForm.capital} 
@@ -31,5 +27,19 @@ import Header from '../components/Header.svelte';
         onInput={({target: {value}}) => update(value, "capital")}
     />
 
-    <button on:click={save}>Save</button>
+
+    <div class="button-container">
+        <button on:click={save}>Save</button>
+    </div>
 </main>
+
+<style>
+    .button-container {
+        padding: 0.5rem 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    button {
+        border-radius: .5rem;
+    }
+</style>

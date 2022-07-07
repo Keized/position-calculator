@@ -3,9 +3,7 @@ import { writable } from 'svelte/store';
 
 const defaultPreferences = {
     capital: 1000,
-    maxLossPerTrade: 1,
-    currentPrice: 20,
-    stopPrice: 19
+    maxLossPerTrade: 1
 };
 
 let storedPreferences;

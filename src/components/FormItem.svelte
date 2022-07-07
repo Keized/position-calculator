@@ -23,21 +23,5 @@
 </div>
 
 <style>
-	.form-group {
-		padding: .5rem 2rem;
-		margin-bottom: .5rem;
-	}
 
-	.form-group label{
-		margin-bottom: .5rem;
-		font-weight: 700;
-	}
-
-    input {
-        border-radius: .5rem;
-    }
-
-	input:read-only {
-		pointer-events: none;
-	}
 </style>
