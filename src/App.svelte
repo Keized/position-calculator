@@ -1,4 +1,5 @@
 <script >
+	import FormItem from './FormItem.svelte';
 	export let capital = 1000;
 	export let maxLossPerTrade = 1;
 
@@ -17,66 +18,57 @@
 </script>
 
 <main>
-	<div>
+	<h2>Position Calculator</h2>
 		<div>
-			<div class="form-group">
-				<label for="capital">Capital</label>
-				<input
-					name="capital" 
-					value={capital}
-				 	on:input={({target: {value}}) => {capital = value}}
-				>
-			</div>
-			<div class="form-group">
-				<label for="maxLossPerTrade">Risk (%)</label>
-				<input 
-					name="maxLossPerTrade" 
-					value={maxLossPerTrade}
-				 	on:input={({target: {value}}) => {maxLossPerTrade = value}}
-				>
-			</div>
+			<FormItem 
+				label="Capital" 
+				name="capital" 
+				onInput={({target: {value}}) => {capital = value}} 
+				value="{capital}" 
+			/>
+		
+			<FormItem 
+				label="Risk (%)" 
+				name="maxLossPerTrade" 
+				onInput={({target: {value}}) => {maxLossPerTrade = value}} 
+				value="{maxLossPerTrade}" 
+				hint="Risk Amount: {capital * (maxLossPerTrade / 100)}"
+			/>
 
-			<div class="form-group">
-				<label for="currentPrice">Current Price</label>
-				<input
-					name="currentPrice" 
-					value={currentPrice}
-					on:input={({target: {value}}) => {currentPrice = value}}
-				/>
-			</div>
+			<FormItem 
+				label="Current Price"
+				name="currentPrice" 
+				onInput={({target: {value}}) => {currentPrice = value}} 
+				value="{currentPrice}"
+			/>
 
-			<div class="form-group">
-				<label for="stopPrice">Stop Price</label>
-				<input
-					name="stopPrice" 
-					value={stopPrice}
-					on:input={({target: {value}}) => {stopPrice = value}}
-				/>
-			</div>
+			<FormItem 
+				label="Stop Price" 
+				name="stopPrice" 
+				onInput={({target: {value}}) => {stopPrice = value}} 
+				value="{stopPrice}"
+			/>
+
+			<FormItem 
+				label="Position Size ($)" 
+				readOnly={true}
+				name="total" 
+				onInput={() => {}} 
+				value="{total}"
+			/>
 		</div>
-	</div>
-
-	<div class="">
-		<label for="total">Position Size ($)</label>
-		<input
-			readonly
-			name="total" 
-			value="{total}"
-		/>
-	</div>
 </main>
 
 <style>
-	main {
+	h2 {
 		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
 	}
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+	main {
+		padding: 1em;
+		margin: 0 auto;
+		background-color: #FAFAFA;
+		border-radius: 1rem;
+		width: fit-content;
 	}
 </style>
