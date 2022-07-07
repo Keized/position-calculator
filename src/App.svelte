@@ -57,11 +57,11 @@
 	</div>
 
 	<div class="">
-		<label for="total">Position Size</label>
+		<label for="total">Position Size ($)</label>
 		<input
 			readonly
 			name="total" 
-			value="{total} €"
+			value="{total}"
 		/>
 	</div>
 </main>
