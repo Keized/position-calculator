@@ -78,6 +78,8 @@ h2 {
 
 input {
 	border-radius: .5rem;
+	outline: none;
+	border: none;
 	background-color: #FAFAFA;
 }
 

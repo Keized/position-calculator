@@ -14,6 +14,7 @@
             readonly={readOnly}
             name={name} 
             value={value}
+            autocomplete="off"
             on:input={onInput}
         />
     </div>
