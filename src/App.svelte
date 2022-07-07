@@ -2,8 +2,8 @@
 	export let capital = 1000;
 	export let maxLossPerTrade = 1;
 
-	export let currentPrice = 1.2552;
-	export let stopPrice = 1.208;	
+	export let currentPrice = 2;
+	export let stopPrice = 1;	
 
 	function calculatePositionSize(capital, maxLossPerTrade, currentPrice, stopPrice) {
 		const assetMaxLoss = capital * (maxLossPerTrade / 100);
