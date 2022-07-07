@@ -1,6 +1,7 @@
 <script >
 	import {preferences} from '../store';
 	import FormItem from '../components/FormItem.svelte';
+	import Header from '../components/Header.svelte';
 	export let capital
 	export let maxLossPerTrade
 	export let currentPrice
@@ -25,6 +26,7 @@
 </script>
 
 <main>
+	<Header/>
 	<h2>Position Calculator</h2>
 		<div>
 			<FormItem 
@@ -67,15 +69,5 @@
 </main>
 
 <style>
-	h2 {
-		text-align: center;
-	}
 
-	main {
-		padding: 1em;
-		margin: 0 auto;
-		background-color: #FAFAFA;
-		border-radius: 1rem;
-		width: fit-content;
-	}
 </style>
