@@ -78,6 +78,7 @@ h2 {
 
 input {
 	border-radius: .5rem;
+	background-color: #FAFAFA;
 }
 
 input:read-only {
