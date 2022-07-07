@@ -1,12 +1,12 @@
 <script >
-	export let capital = 1850;
-	export let maxLossPerTrade = 0.005;
+	export let capital = 1000;
+	export let maxLossPerTrade = 1;
 
 	export let currentPrice = 1.2552;
 	export let stopPrice = 1.208;	
 
 	function calculatePositionSize(capital, maxLossPerTrade, currentPrice, stopPrice) {
-		const assetMaxLoss = capital * maxLossPerTrade;
+		const assetMaxLoss = capital * (maxLossPerTrade / 100);
 		const diff = currentPrice - stopPrice;
 		const assetPositionSize = assetMaxLoss / diff;
 		const currencyPositionSize = assetPositionSize * currentPrice
@@ -28,7 +28,7 @@
 				>
 			</div>
 			<div class="form-group">
-				<label for="maxLossPerTrade">Capital</label>
+				<label for="maxLossPerTrade">Risk (%)</label>
 				<input 
 					name="maxLossPerTrade" 
 					value={maxLossPerTrade}
