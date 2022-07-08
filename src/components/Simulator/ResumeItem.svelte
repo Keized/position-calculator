@@ -1,5 +1,5 @@
 <script>
-    import {formatNumber} from '../helper';
+    import {formatNumber} from '../../helper';
 
     export let label = '';
     export let value = '';
@@ -11,3 +11,7 @@
     <br>
     <b>{formatNumber(value)} {symbol}</b>
 </div>
+
+<style>
+    
+</style>

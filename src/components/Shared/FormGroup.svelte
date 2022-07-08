@@ -1,21 +1,24 @@
 <script>
+    import Input from './Input.svelte';
+
     export let value;
     export let name;
     export let onInput;
     export let label;
     export let hint;
     export let readOnly;
+
 </script>
 
 <div class="form-group">
     <div>
         <label for={name}>{label}</label>
-        <input
+        <Input 
             readonly={readOnly}
             name={name} 
             value={value}
             autocomplete="off"
-            on:input={onInput}
+            onInput={onInput}
         />
     </div>
     {#if hint }
@@ -24,5 +27,12 @@
 </div>
 
 <style>
+    .form-group {
+        padding: .5rem 0;
+        margin-bottom: .5rem;
+    }
 
+    .form-group label{
+        font-size: .8rem;
+    }
 </style>

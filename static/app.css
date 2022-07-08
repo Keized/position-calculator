@@ -52,40 +52,6 @@ h2 {
 	text-align: center;
 }
 
-.form-group {
-	padding: .5rem 0;
-	margin-bottom: .5rem;
-}
-
-.form-group label{
-	font-size: .8rem;
-}
-
-input {
-	font-weight: 700;
-	outline: none;
-	border: none;
-	color: white;
-	background-color: transparent;
-	border-bottom: 2px solid #FFFFFF80;
-	padding: .5rem 0;
-	width: -webkit-fill-available;
-	font-family: inherit;
-	font-size: inherit;
-}
-
-input:disabled {
-	color: #ccc;
-}
-
-input:read-only {
-	pointer-events: none;
-}
-
-input:focus {
-	border-color: #FFFFFF;
-}
-
 .row {
 	justify-content: space-between;
 	display: flex;

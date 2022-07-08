@@ -1,9 +1,10 @@
 <script >
 	import {preferences, simulation as simulationStore} from '../store';
-	import FormItem from '../components/FormItem.svelte';
 	import {calculateLoss, calculateProfit} from '../formula';
 	import {formatNumber} from '../helper';
-import ResumeItem from '../components/ResumeItem.svelte';
+	import FormGroup from '../components/Shared/FormGroup.svelte';
+	import Resume from '../components/Simulator/Resume.svelte';
+	import Range from '../components/Shared/Range.svelte';
 
 	export let capital;
 	export let maxLossPerTrade;
@@ -36,8 +37,8 @@ import ResumeItem from '../components/ResumeItem.svelte';
  
 	$: percentProfit = calculatePercent(simulation.entryPrice, simulation.takeProfit, simulation.short);
 	$: percentLoss = calculatePercent(simulation.entryPrice, simulation.stopLoss, simulation.short);
-	$: estimatedProfit = calculateProfit(simulation.entryPrice, percentProfit, simulation.positionSize);
-	$: estimatedLoss = calculateLoss(simulation.entryPrice, percentLoss, simulation.positionSize);
+	$: estimatedProfit = calculateProfit(simulation.entryPrice, percentProfit, simulation.positionSize, simulation.leverage);
+	$: estimatedLoss = calculateLoss(simulation.entryPrice, percentLoss, simulation.positionSize, simulation.leverage);
 </script>
 
 <main>
@@ -48,54 +49,54 @@ import ResumeItem from '../components/ResumeItem.svelte';
 				<button on:click={() => simulation.short = true} class="short {simulation.short && 'active'}">Short</button>
 			</div>
 
-			<FormItem 
+			<div>
+				<Range 
+					label="Leverage"
+					value={simulation.leverage}
+					onInput={onInput}
+					name="leverage"
+				/>
+			</div>
+
+			<FormGroup 
 				label="Entry Price"
 				name="entryPrice" 
 				onInput={onInput} 
 				value="{simulation.entryPrice}"
 			/>
 
-			<FormItem 
+			<FormGroup 
 				label="Take Profit" 
 				name="takeProfit" 
 				onInput={onInput} 
 				value="{simulation.takeProfit}"
-				hint="Estimated Profit: {formatNumber(percentProfit)} %"
+				hint="Gain: {formatNumber(percentProfit)} %"
 			/>
 
-			<FormItem 
+			<FormGroup 
 				label="Stop Loss" 
 				name="stopLoss" 
 				onInput={onInput} 
 				value="{simulation.stopLoss}"
-				hint="Estimated Loss: {formatNumber(percentLoss)} %"
+				hint="Loss: {formatNumber(percentLoss)} %"
 			/>
 
-			<FormItem 
+			<FormGroup 
 				label="Position Size" 
 				name="positionSize" 
 				onInput={onInput} 
 				value="{simulation.positionSize}"
 			/>
-
-			<div class="resume">
-				<div class="row">
-					<ResumeItem label={"Profit"} value={estimatedProfit} symbol="$"/>
-					<ResumeItem label={"Risk"} value={estimatedLoss} symbol="$"/>
-					<ResumeItem label={"Capital Risk"} value={(Math.abs(estimatedLoss) * 100) / capital} symbol="%"/>
-				</div>
-			</div>
 		</div>
+
+		<Resume 
+			estimatedProfit={estimatedProfit}
+			estimatedLoss={estimatedLoss}
+			capital={capital}
+		/>
 </main>
 
 <style>
-	.resume {
-		margin: 0.5rem 0;
-		border-radius: .5rem;
-		padding: 1rem;
-		background: #00000030;
-	}
-
 	.switch-container {
 		margin-bottom: 1rem;
 		display: flex;

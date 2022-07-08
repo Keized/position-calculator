@@ -1,5 +1,5 @@
 <script>
-	import FormItem from '../components/FormItem.svelte';
+	import FormGroup from '../components/Shared/FormGroup.svelte';
 	import {preferences} from '../store';
 
     export let currentForm;
@@ -20,7 +20,7 @@
 <main>
 	<h2>Preferences</h2>
 
-    <FormItem 
+    <FormGroup 
         value={currentForm.capital} 
         name={"capital"}
         label={"capital"} 
