@@ -80,9 +80,9 @@ import ResumeItem from '../components/ResumeItem.svelte';
 
 			<div class="resume">
 				<div class="row">
-					<ResumeItem label={"Profit"} value={estimatedProfit} />
-					<ResumeItem label={"Risk"} value={estimatedLoss} />
-					<ResumeItem label={"Capital Risk"} value={(Math.abs(estimatedLoss) * 100) / capital} />
+					<ResumeItem label={"Profit"} value={estimatedProfit} symbol="$"/>
+					<ResumeItem label={"Risk"} value={estimatedLoss} symbol="$"/>
+					<ResumeItem label={"Capital Risk"} value={(Math.abs(estimatedLoss) * 100) / capital} symbol="%"/>
 				</div>
 			</div>
 		</div>
