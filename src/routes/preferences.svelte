@@ -31,11 +31,20 @@
     <div class="button-container">
         <button on:click={save}>Save</button>
     </div>
+
+    <a href="https://www.buymeacoffee.com/keized" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 </main>
 
 <style>
     .button-container {
         margin-bottom: 0.5rem;
+    }
+
+    a {
+        transform: scale(.8);
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
     }
 
     button {
