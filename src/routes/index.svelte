@@ -1,6 +1,9 @@
 <script >
 	import {preferences} from '../store';
 	import FormItem from '../components/FormItem.svelte';
+	import {calculateLoss, calculateProfit} from '../formula';
+	import {formatNumber} from '../helper';
+
 	export let capital;
 	export let maxLossPerTrade;
 	export let entryPrice = 10;
@@ -24,14 +27,6 @@
 		}
 
 		return percent;
-	}
-
-	function calculateLoss(entryPrice, percentLoss, positionSize) {
-		return ((entryPrice * (percentLoss / 100)) - entryPrice) * (positionSize/entryPrice) + parseInt(positionSize, 10);
-	}
-
-	function calculateProfit(entryPrice, percentProfit, positionSize) {
-		return ((entryPrice * percentProfit) * (positionSize/entryPrice)) / 100;
 	}
  
 	$: percentProfit = calculatePercent(entryPrice, takeProfit, short);
@@ -80,9 +75,9 @@
 
 			<div class="resume">
 				<div class="row">
-					<div class="div">Profit: <br>{Math.round(estimatedProfit)} $</div>
-					<div class="div">Risk: <br>{Math.round(estimatedLoss)} $</div>
-					<div class="div">Capital Risk: <br>{Math.round((Math.abs(estimatedLoss) * 100) / capital)} %</div>
+					<div class="div">Profit: <br>{formatNumber(estimatedProfit)} $</div>
+					<div class="div">Risk: <br>{formatNumber(estimatedLoss)} $</div>
+					<div class="div">Capital Risk: <br>{formatNumber((Math.abs(estimatedLoss) * 100) / capital)} %</div>
 				</div>
 			</div>
 		</div>
