@@ -1,20 +1,21 @@
 <script >
-	import {preferences} from '../store';
+	import {preferences, simulation as simulationStore} from '../store';
 	import FormItem from '../components/FormItem.svelte';
 	import {calculateLoss, calculateProfit} from '../formula';
 	import {formatNumber} from '../helper';
+import ResumeItem from '../components/ResumeItem.svelte';
 
 	export let capital;
 	export let maxLossPerTrade;
-	export let entryPrice = 10;
-	export let stopLoss = 5;
-	export let takeProfit = 15;
-	export let positionSize = 200;
-	export let short = false;
-	
+	export let simulation;
+
 	preferences.subscribe(value => {
 		capital = value.capital;
 		maxLossPerTrade = value.maxLossPerTrade;
+	});
+
+	simulationStore.subscribe(value => {
+		simulation = value
 	});
 
 	function calculatePercent(entryPrice, exit, short) {
@@ -28,56 +29,60 @@
 
 		return percent;
 	}
+
+	function onInput({target}) {
+		simulation[target.name] = target.value
+	}
  
-	$: percentProfit = calculatePercent(entryPrice, takeProfit, short);
-	$: percentLoss = calculatePercent(entryPrice, stopLoss, short);
-	$: estimatedProfit = calculateProfit(entryPrice, percentProfit, positionSize);
-	$: estimatedLoss = calculateLoss(entryPrice, percentLoss, positionSize);
+	$: percentProfit = calculatePercent(simulation.entryPrice, simulation.takeProfit, simulation.short);
+	$: percentLoss = calculatePercent(simulation.entryPrice, simulation.stopLoss, simulation.short);
+	$: estimatedProfit = calculateProfit(simulation.entryPrice, percentProfit, simulation.positionSize);
+	$: estimatedLoss = calculateLoss(simulation.entryPrice, percentLoss, simulation.positionSize);
 </script>
 
 <main>
 	<h2>Trade Simulation</h2>
 		<div>
 			<div class="switch-container">
-				<button on:click={() => short = false} class={!short && 'active'}>Long</button>
-				<button on:click={() => short = true} class="short {short && 'active'}">Short</button>
+				<button on:click={() => simulation.short = false} class={!simulation.short && 'active'}>Long</button>
+				<button on:click={() => simulation.short = true} class="short {simulation.short && 'active'}">Short</button>
 			</div>
 
 			<FormItem 
 				label="Entry Price"
 				name="entryPrice" 
-				onInput={({target: {value}}) => {entryPrice = value}} 
-				value="{entryPrice}"
+				onInput={onInput} 
+				value="{simulation.entryPrice}"
 			/>
 
 			<FormItem 
 				label="Take Profit" 
 				name="takeProfit" 
-				onInput={({target: {value}}) => {takeProfit = value}} 
-				value="{takeProfit}"
-				hint="Estimated Profit: {percentProfit} %"
+				onInput={onInput} 
+				value="{simulation.takeProfit}"
+				hint="Estimated Profit: {formatNumber(percentProfit)} %"
 			/>
 
 			<FormItem 
 				label="Stop Loss" 
 				name="stopLoss" 
-				onInput={({target: {value}}) => {stopLoss = value}} 
-				value="{stopLoss}"
-				hint="Estimated Loss: {percentLoss} %"
+				onInput={onInput} 
+				value="{simulation.stopLoss}"
+				hint="Estimated Loss: {formatNumber(percentLoss)} %"
 			/>
 
 			<FormItem 
 				label="Position Size" 
 				name="positionSize" 
-				onInput={({target: {value}}) => {positionSize = value}} 
-				value="{positionSize}"
+				onInput={onInput} 
+				value="{simulation.positionSize}"
 			/>
 
 			<div class="resume">
 				<div class="row">
-					<div class="div">Profit: <br>{formatNumber(estimatedProfit)} $</div>
-					<div class="div">Risk: <br>{formatNumber(estimatedLoss)} $</div>
-					<div class="div">Capital Risk: <br>{formatNumber((Math.abs(estimatedLoss) * 100) / capital)} %</div>
+					<ResumeItem label={"Profit"} value={estimatedProfit} />
+					<ResumeItem label={"Risk"} value={estimatedLoss} />
+					<ResumeItem label={"Capital Risk"} value={(Math.abs(estimatedLoss) * 100) / capital} />
 				</div>
 			</div>
 		</div>
@@ -85,32 +90,31 @@
 
 <style>
 	.resume {
-		margin: 0.5rem 2rem;
+		margin: 0.5rem 0;
 		border-radius: .5rem;
 		padding: 1rem;
-		background: #00000020;
+		background: #00000030;
 	}
 
 	.switch-container {
-		margin: 0 1rem;
-		padding: 0 1rem;
+		margin-bottom: 1rem;
 		display: flex;
 	}
 
 	.switch-container button {
+		padding: .5rem 2rem;
 		font-weight: 700;
-		border-radius: .5rem 0 0 .5rem;
+		background: none;
+		border: none;
+		border-bottom: 3px solid green;
+		color: white;
 		opacity: .5;
 		outline: none;
-		color: white;
-		background-color: green;
-		border: none;
+		flex: 1;
 	}
 
 	.switch-container button.short {
-		background-color: red;
-		border-radius: 0 .5rem .5rem 0;
-
+		border-color: red;
 	}
 
 	.switch-container button.active {

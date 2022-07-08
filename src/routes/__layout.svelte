@@ -9,11 +9,10 @@
 
 <style>
     .layout {
+        padding: 0 2rem 2rem 2rem;
         min-height: 100vh;
         margin: 0 auto;
-        width: 100vw;
-        padding-bottom: 2rem;
         max-width: 500px;
-        background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+        background: linear-gradient(-60deg, rgb(60, 41, 136) 0%, rgba(0,0,0,1) 100%);
     }
 </style>

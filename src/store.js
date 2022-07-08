@@ -6,12 +6,26 @@ const defaultPreferences = {
     maxLossPerTrade: 1
 };
 
+const defaultSimulation = {
+    entryPrice: 10,
+    stopLoss: 5,
+    takeProfit: 15,
+    positionSize: 200,
+    short: false,
+    leverage: 1
+};
+
 let storedPreferences;
+let currentSimulation = defaultSimulation;
 
 if (browser) {
     storedPreferences = localStorage.getItem('preferences');
     if (storedPreferences) {
-        storedPreferences = JSON.parse(storedPreferences);
+        try {
+            storedPreferences = JSON.parse(storedPreferences);        
+        } catch(error) {
+            storedPreferences = defaultPreferences;
+        }
     }
 }
 
@@ -20,6 +34,8 @@ if (!storedPreferences) {
 }
 
 export const preferences = writable(storedPreferences);
+export const simulation = writable(currentSimulation);
+
 
 if (browser) {
     preferences.subscribe(value => {

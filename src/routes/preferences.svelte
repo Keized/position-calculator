@@ -35,11 +35,15 @@
 
 <style>
     .button-container {
-        padding: 0.5rem 2rem;
         margin-bottom: 0.5rem;
     }
 
     button {
-        border-radius: .5rem;
+        width: 100%;
+        border: 2px solid white;
+        background: transparent;
+        color: white;
+        font-weight: 700;
+        padding: .5rem 2rem;
     }
 </style>
